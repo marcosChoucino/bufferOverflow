@@ -7,6 +7,3 @@ Aplicación que realiza el ataque. Se puede modificar para que lo habra directam
 Aplicación vunerable, ya que hace un strcpy del buffer sin comprobar la entrada y esta compilada con directivas incorrectas
 ## compYEjecutar.sh
 Bash que compila y ejecuta el programa rapidamente y con las directivas que deseamos
-# Creditos
-La shell que he usado la he conseguido de la pagina Shellstorm, subida por el usuario Gitsnik
-https://shell-storm.org/shellcode/files/shellcode-866.html
